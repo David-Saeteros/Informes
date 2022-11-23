@@ -1,0 +1,552 @@
+---
+params:
+   id: '`r strtoi(params$Clave)`'
+   Clave:
+   Edad:
+   Sexo:
+   Estudios:
+   Correo:
+   Puesto:
+   Sector:
+   Provincia:
+   POS.pz:
+   WAS.pz:
+   BSI18.pz:
+   BSI18.ansv.pz:
+   BSI18.anss.pz:
+   BSI18.depr.pz:
+   UWES.pz:
+   UWES.vgr.pz:
+   UWES.dedc.pz:
+   UWES.absr.pz:
+   BFIXS.ama.pz:
+   BFIXS.emon.pz:
+   BFIXS.respo.pz:
+   BFIXS.apex.pz:
+   BFIXS.extra.pz:
+   PRIMAEF.cgrt.pz:
+   PRIMAEF.cont.pz:
+   PRIMAEF.relp.pz:
+   PRIMAEF.parc.pz:
+   PRIMAEF.dper.pz:
+   PRIMAEF.corg.pz:
+   PRIMAEF.intr.pz:
+   PRIMAEF.valg.pz:
+   PCQ12.autf.pz:
+   PCQ12.hope.pz:
+   PCQ12.rsl.pz:
+   PCQ12.optm.pz:
+   PCQ12.cap_psy.pz:
+                     )
+title: "Evaluación Psicológica POSS-2022"
+author: "Identificador: `r params$Clave`"
+date: "`r Sys.Date()`"
+output: 
+  powerpoint_presentation:
+    reference_doc: blank_template.pptx
+    toc: true
+---
+# Descripción
+
+Este informe recoje los datos de la evaluación que se llevó a cabo por la Universidad de Barcelona, Universidad de Murcia y la Asociación de Medicina del Trabajo, a través de una batería de cuestionarios que comprendía varios componentes.
+
+En esta batería, hemos evaluado los siguientes aspectos:
+
+- Estrés ocupacional percibido (POSS)
+- Índice de capacidad laboral (WAS)
+- Síntomas psicopatológicos (BSI-18)
+- Escala Utrecht de Engagement en el Trabajo (UWES)
+- Personalidad general (BFI 2 XS)
+- Marco europeo para la gestión del riesgo psicosocial (PRIMA-EF)
+- Cuestionario de capital psicológico (PCQ-12)
+
+En las siguientes páginas, encontrará los datos indentificativos de la persona evaluada y sus resultados en las diferentes pruebas, así como las interpretaciones correspondientes, que han se ser complementadas con la opinión de un técnico especialista.
+
+# Estrés ocupacional percibido (POSS)
+
+Estos son los resultados de la persona **`r params$Clave`**, de sexo **`r params$Sexo`** de **`r params$Edad`** años de edad, con estudios **`r params$Estudios`**, con un puesto de **`r params$Puesto`**, de la provincia de **`r params$Provincia`**.
+
+El estrés ocupacional percibido es la cantidad de estrés de la que un individuo es consciente y que ocurre en su ambiente laboral y por motivos laborales.
+
+La persona candidata **`r params$Clave`** ha respondido al POSS, obteniendo una puntuación de **`r params$POS.pz`** `r if(params$POS.pz < 30){"que corresponde a un nivel bajo de percepción de estrés ocupacional"} else if(params$POS.pz > 30 && params$POS.pz <= 70){"que corresponde a un nivel medio de percepción de estrés ocupacional"} else if(params$POS.pz > 70){"que corresponde a un nivel alto de percepción de estrés ocupacional"}`.
+
+# Índice de capacidad laboral (WAS)
+
+El Índice de capacidad laboral es una medida de la percepción de un individuo sobre su capacidad para trabajar y desempeñarse en su trabajo.
+
+La persona candidata **`r params$Clave`** ha respondido al WAS, obteniendo una puntuación de **`r params$WAS.pz`** `r if(params$WAS.pz < 30){"que corresponde a un nivel bajo de percepción de capacidad laboral"} else if(params$WAS.pz > 30 && params$WAS.pz <= 70){"que corresponde a un nivel medio de percepción de capacidad laboral"} else if(params$WAS.pz > 70){"que corresponde a un nivel alto de percepción de capacidad laboral"}`.
+
+# Síntomas psicopatológicos (BSI-18)
+:::: {.columns}
+::: {.column}
+**Interpretación**  
+  
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# Create data
+data <- data.frame(
+  x=c("Ansiedad vasovagal",
+      "Ansiedad Simpática",
+      "Depresión",
+      "Malestar"),
+   y=c(as.numeric(params$BSI18.ansv.pz), 
+       as.numeric(params$BSI18.anss.pz),
+       as.numeric(params$BSI18.depr.pz),
+       as.numeric(params$BSI18.pz))
+
+)
+
+
+```
+
+`r if(as.numeric(params$BSI18.ansv.pz < 35)){"- Ansiedad vasovagal (buena salud)."}`
+`r if(as.numeric(params$BSI18.anss.pz < 35)){"- Ansiedad simpática (buena salud)."}`
+`r if(as.numeric(params$BSI18.depr.pz < 35)){"- Depresión (buena salud)."}`
+`r if(as.numeric(params$BSI18.pz < 35)){"- Malestar psicológico (buena salud). Posiblemente sea una persona resiliente."}`
+
+`r if(params$BSI18.ansv.pz > 35 && params$BSI18.ansv.pz <= 65){"- Ansiedad vasovagal (salud estable)."}`
+`r if(params$BSI18.anss.pz > 35 && params$BSI18.anss.pz <= 65){"- Ansiedad simpática (salud estable)."}`
+`r if(params$BSI18.depr.pz > 35 && params$BSI18.depr.pz <= 65){"- Depresión (salud estable)."}`
+`r if(params$BSI18.pz > 35 && params$BSI18.pz <= 65){"- Malestar psicológico (salud estable)."}`
+
+`r if(as.numeric(params$BSI18.ansv.pz > 65)){"- Ansiedad vasovagal (mala salud). Posiblemente muestre problemas como vértigos, sofoco, palidez o sudor frío."}`
+`r if(as.numeric(params$BSI18.anss.pz > 65)){"- Ansiedad simpática (mala salud). Posiblemente muestre problemas como palpitaciones, sensación de nerviosismo, ahogo, etc."}`
+`r if(as.numeric(params$BSI18.depr.pz > 65)){"- Depresión (mala salud). Posiblemente muestre sentimientos de tristeza, soledad, etc."}`
+`r if(as.numeric(params$BSI18.pz > 65)){"- Malestar psicológico (mala salud). Este componente está muy elevado y necesita de atención individual."}`
+
+Esta interpretación se basa en Derogatis LR. *Brief Symptom Inventory (BSI)-18. Administration, scoring and procedures manual.* Minneapolis: NCS Pearson, 2001. 
+:::
+::: {.column}
+```{r, fig.cap="Notas T", echo=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+
+data <- data %>%
+  mutate(name = factor(x, levels=c("Ansiedad vasovagal",
+      "Ansiedad Simpática",
+      "Depresión",
+      "Malestar"))) 
+ggplot(data, aes(x=name, y=y)) +
+  geom_segment(aes(x=name, xend=name, y=50, yend=y), color="skyblue") +
+  geom_point( color="blue", size=4, alpha=0.6) +
+  ylab("Notas T")+
+  xlab("Dimensión")+
+  ylim(c(10,90))+
+  theme_light() +
+  geom_hline(yintercept=c(35,65), linetype="dashed", color = "red")+
+  coord_flip() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+:::
+::::
+
+# Escala Utrecht de Engagement en el Trabajo (UWES)
+:::: {.columns}
+::: {.column}
+**Interpretación**  
+  
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# Create data
+data <- data.frame(
+  x=c("Compromiso de trabajo",
+      "Vigor",
+      "Dedicación",
+      "Absorción"),
+   y=c(as.numeric(params$UWES.pz),
+       as.numeric(params$UWES.vgr.pz),
+       as.numeric(params$UWES.dedc.pz),
+       as.numeric(params$UWES.absr.pz))
+
+)
+
+```
+
+`r if(as.numeric(params$UWES.pz < 35)){"- Compromiso de trabajo (bajo). Esta persona muestra *generalmente* un compromiso con el trabajo bajo, por debajo de la población."}`
+`r if(as.numeric(params$UWES.vgr.pz < 35)){"- Vigor (bajo). Esta persona muestra *generalmente* niveles bajos de vigor que se pueden manifestar en poca energía en el trabajo, pocas ganas de trabajar y poca persistencia."}`
+`r if(as.numeric(params$UWES.dedc.pz < 35)){"- Dedicación (baja). Esta persona muestra *generalmente* niveles bajos de dedicación que se pueden manifestar en no encontrarle un propósito al trabajo, poco entusiasmo e inspiración en su trabajo, no sentir orgullo por lo que se hace y no sentirse retado por el trabajo."}`
+`r if(as.numeric(params$UWES.absr.pz < 35)){"- Absorción (baja). Esta persona muestra *generalmente* niveles bajos de absorción que se pueden manifestar en distracciones con cualquier cosa que no pertenezca al trabajo y una desconexión con su trabajo."}`
+
+`r if(params$UWES.pz > 35 && params$UWES.pz <= 65){"- Compromiso de trabajo (medio). Esta persona muestra *generalmente* un compromiso con el trabajo medio, igual que la mayoría de la población."}`
+`r if(params$UWES.vgr.pz > 35 && params$UWES.vgr.pz <= 65){"- Vigor (medio). Esta persona muestra *generalmente* niveles medios de vigor que se pueden manifestar en mantenerse con energía durante el trabajo, tener ganas de trabajar y persistencia."}`
+`r if(params$UWES.dedc.pz > 35 && params$UWES.dedc.pz <= 65){"- Dedicación (media). Esta persona muestra *generalmente* niveles medios de dedicación que se pueden manifestar en tener presente el propósito de su trabajo, mantener su entusiasmo e inspiración, sentir, en ocasiones, orgullo por lo que se hace y sentirse retado por el trabajo."}`
+`r if(params$UWES.absr.pz > 35 && params$UWES.absr.pz <= 65){"- Absorción (media). Esta persona muestra *generalmente* niveles medios de absorción que se pueden manifestar en sentirse distraído de vez en cuando con asuntos que no pertenezcan al trabajo durante las horas de trabajo, sin embargo, esto no le impide tener un buen desempeño."}`
+
+`r if(as.numeric(params$UWES.pz > 65)){"- Compromiso de trabajo (alto). Esta persona muestra *generalmente* un compromiso con el trabajo alto, por encima de la población."}`
+`r if(as.numeric(params$UWES.vgr.pz > 65)){"- Vigor (alto). Esta persona muestra *generalmente* niveles altos de vigor que se pueden manifestar en tener mucha energía en el trabajo, ganas de trabajar y persistencia en las dificultades."}`
+`r if(as.numeric(params$UWES.dedc.pz > 65)){"- Dedicación (alto). Esta persona muestra *generalmente* niveles altos de dedicación que se pueden manifestar en tener claro el propósito de su trabajo, mucho entusiasmo e inspiración en su trabajo, sentir orgullo por lo que se hace y pensar que el trabajo es retador."}`
+`r if(as.numeric(params$UWES.absr.pz > 65)){"- Absorción (alto). Esta persona muestra *generalmente* niveles altos de absorción que se pueden manifestar en una concentración a prueba de distracciones durante las horas de trabajo, además puede mostrar una conexión fuerte con su trabajo."}`
+
+Esta interpretación se basa en Schaufeli, W. B., Salanova, M., González-Romá, V., & Bakker, A. B. *The measurement of engagement and burnout: A two sample confirmatory factor analytic approach.* Journal of Happiness studies, 3(1), 71-92, 2002.
+:::
+::: {.column}
+```{r, fig.cap="Notas T", echo=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+
+data <- data %>%
+  mutate(name = factor(x, levels=c("Compromiso de trabajo",
+      "Vigor",
+      "Dedicación",
+      "Absorción"))) 
+ggplot(data, aes(x=name, y=y)) +
+  geom_segment(aes(x=name, xend=name, y=50, yend=y), color="skyblue") +
+  geom_point( color="blue", size=4, alpha=0.6) +
+  ylab("Notas T")+
+  xlab("Dimensión")+
+  ylim(c(10,90))+
+  theme_light() +
+  geom_hline(yintercept=c(35,65), linetype="dashed", color = "red")+
+  coord_flip() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+:::
+::::
+
+# Personalidad general (BFI 2 XS)
+
+## Descripción
+
+Las escalas usadas resumen la personalidad en 5 dimensiones:
+
+- Emocionalidad negativa o la tendencia a presentar inestabilidad emocional
+- Extraversión o la tendencia a ser sociable y hablador.
+- Cordialidad o la tendencia a pensar bien de los demás y estar en buenos términos con los otros.
+- Responsabilidad (Consciencia) o la tendencia a llevar a término las tareas con orden y perseverancia.
+- Apertura a la experiencia o la tendencia a buscar estímulos nuevos y poco comunes, sentirse llamado por el arte y la belleza.
+
+En la siguiente página se muestra el puntaje en estas dimensiones. Estos puntajes no son ni buenos ni malos, solamente describen recursos que posee la persona para lidiar con las necesidades del medio ambiente.
+
+# Perfil general de personalidad
+
+:::: {.columns}
+::: {.column}
+**Interpretación**  
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+# Create data
+data <- data.frame(
+  x=c("R", "C", "En", "A", "Ex"),
+  y=c(as.numeric(params$BFIXS.respo.pz), 
+      as.numeric(params$BFIXS.ama.pz), 
+      as.numeric(params$BFIXS.emon.pz), 
+      as.numeric(params$BFIXS.apex.pz), 
+      as.numeric(params$BFIXS.extra.pz))
+)
+
+
+```
+
+`r if(as.numeric(params$BFIXS.respo.pz < 35)){"- Responsabilidad (baja)"}`
+`r if(as.numeric(params$BFIXS.ama.pz < 35)){"- Cordialidad (baja)"}`
+`r if(as.numeric(params$BFIXS.emon.pz < 35)){"- Emocionalidad negativa (baja)"}`
+`r if(as.numeric(params$BFIXS.apex.pz < 35)){"- Apertura (baja)"}`
+`r if(as.numeric(params$BFIXS.extra.pz < 35)){"- Extraversión (baja)"}`
+
+`r if(params$BFIXS.respo.pz > 35 && params$BFIXS.respo.pz <= 65){"- Responsabilidad (medio)."}`
+`r if(params$BFIXS.ama.pz > 35 && params$BFIXS.ama.pz <= 65){"- Cordialidad (medio)."}`
+`r if(params$BFIXS.emon.pz > 35 && params$BFIXS.emon.pz <= 65){"- Emocionalidad negativa (medio)."}`
+`r if(params$BFIXS.apex.pz > 35 && params$BFIXS.apex.pz <= 65){"- Apertura (medio)."}`
+`r if(params$BFIXS.extra.pz > 35 && params$BFIXS.extra.pz <= 65){"- Extraversión (medio)."}`
+
+`r if(as.numeric(params$BFIXS.respo.pz > 65)){"- Responsabilidad (alta)"}`
+`r if(as.numeric(params$BFIXS.ama.pz > 65)){"- Cordialidad (alta)"}`
+`r if(as.numeric(params$BFIXS.emon.pz > 65)){"- Emocionalidad negativa (alta)"}`
+`r if(as.numeric(params$BFIXS.apex.pz > 65)){"- Apertura (alta)"}`
+`r if(as.numeric(params$BFIXS.extra.pz > 65)){"- Extraversión (alta)"}`
+
+Esta interpretación se basa en Gallardo-Pujol, D., Rouco, V., Cortijos-Bernabeu, A., Oceja, L., Soto, C. J., & John, O. P.  (2022). Factor structure, gender invariance, measurement properties, and short forms of the Spanish adaptation of the Big Five Inventory-2. *Psychological Test Adaptation and Development*
+:::
+::: {.column}
+```{r, fig.cap="Notas T", echo=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+
+data <- data %>%
+  mutate(name = factor(x, levels=c("R", "C", "En", "A", "Ex"))) 
+ggplot(data, aes(x=name, y=y)) +
+  geom_segment(aes(x=name, xend=name, y=50, yend=y), color="skyblue") +
+  geom_point( color="blue", size=4, alpha=0.6) +
+  ylab("Notas T")+
+  xlab("Dimensión")+
+  ylim(c(25,75))+
+  theme_light() +
+  geom_hline(yintercept=c(35,65), linetype="dashed", color = "red")+
+  coord_flip() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+
+```
+:::
+::::
+
+# Marco europeo para la gestión del riesgo psicosocial (PRIMA-EF) (parte 1)
+:::: {.columns}
+::: {.column}
+**Interpretación**  
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# Create data
+data <- data.frame(
+  x=c("Carga y ritmo de trabajo","Contenido del trabajo",
+      "Relaciones personales","Participación y control",
+      "Desarrollo personal","Cultura organizacional",
+      "Interacción casa-trabajo","Valoración general"),
+  y=c(as.numeric(params$PRIMAEF.cgrt.pz), as.numeric(params$PRIMAEF.cont.pz),
+      as.numeric(params$PRIMAEF.relp.pz), as.numeric(params$PRIMAEF.parc.pz),
+      as.numeric(params$PRIMAEF.dper.pz), as.numeric(params$PRIMAEF.corg.pz),
+      as.numeric(params$PRIMAEF.intr.pz), as.numeric(params$PRIMAEF.valg.pz))
+)
+
+```
+
+`r if(as.numeric(params$PRIMAEF.cgrt.pz < 35)){"- Carga y ritmo de trabajo. La persona muestra *en general* una carga de trabajo baja: poca presión por entregas a tiempo y la cantidad de trabajo de la que es responsable la puede gestionar sin problemas."}`
+`r if(as.numeric(params$PRIMAEF.cont.pz < 35)){"- Contenido del trabajo. La persona experimenta *en general* poca variedad en su trabajo, mucha inseguridad y aburrimiento."}`
+`r if(as.numeric(params$PRIMAEF.relp.pz < 35)){"- Relaciones personales. La persona experimenta *en general* buenas relaciones interpersonales dentro de su contexto laboral."}`
+`r if(as.numeric(params$PRIMAEF.parc.pz < 35)){"- Participación y control. La persona experimenta *en general* pocas o ninguna oportunidad para tomar decisiones en su ámbito laboral."}`
+
+`r if(params$PRIMAEF.cgrt.pz > 35 && params$PRIMAEF.cgrt.pz <= 65){"- Carga y ritmo de trabajo. La persona muestra *generalmente* una carga de trabajo media: algo de presión por entregas a tiempo pero la cantidad de trabajo de la que es responsable la puede gestionar sin problemas."}`
+`r if(params$PRIMAEF.cont.pz > 35 && params$PRIMAEF.cont.pz <= 65){"- Contenido del trabajo. La persona experimenta *generalmente* algo de variedad en su trabajo."}`
+`r if(params$PRIMAEF.relp.pz > 35 && params$PRIMAEF.relp.pz <= 65){"- Relaciones personales. La persona experimenta *generalmente* algunas buenas relaciones interpersonales dentro de su contexto laboral."}`
+`r if(params$PRIMAEF.parc.pz > 35 && params$PRIMAEF.parc.pz <= 65){"- Participación y control. La persona experimentas *generalmente* pocas o ninguna oportunidad para tomar decisiones en su ámbito laboral."}`
+
+`r if(as.numeric(params$PRIMAEF.cgrt.pz > 65)){"- Carga y ritmo de trabajo. La persona muestra *en general* una carga de trabajo alta: mucha presión por entregas a tiempo y una cantidad de trabajo por encima de sus capacidades de respuesta."}`
+`r if(as.numeric(params$PRIMAEF.cont.pz > 65)){"- Contenido del trabajo. La persona experimenta *en general* que su trabajo es variado y le llena de sentido."}`
+`r if(as.numeric(params$PRIMAEF.relp.pz > 65)){"- Relaciones personales. La persona experimenta *en general* malas relaciones interpersonales dentro de su contexto laboral."}`
+`r if(as.numeric(params$PRIMAEF.parc.pz > 65)){"- Participación y control. La persona experimenta *en general* muchas oportunidades para tomar decisiones en su ámbito laboral."}`
+
+:::
+::: {.column}
+```{r, fig.cap="Notas T", echo=FALSE, warning=FALSE, message=FALSE}
+
+library(dplyr)
+library(ggplot2)
+
+data <- data %>%
+  mutate(name = factor(x, levels=c("Carga y ritmo de trabajo","Contenido del trabajo",
+      "Relaciones personales","Participación y control",
+      "Desarrollo personal","Cultura organizacional",
+      "Interacción casa-trabajo","Valoración general"))) 
+ggplot(data, aes(x=name, y=y)) +
+  geom_segment(aes(x=name, xend=name, y=50, yend=y), color="skyblue") +
+  geom_point( color="blue", size=4, alpha=0.6) +
+  ylab("Notas T")+
+  xlab("Dimensión")+
+  ylim(c(10,90))+
+  theme_light() +
+  geom_hline(yintercept=c(35,65), linetype="dashed", color = "red")+
+  coord_flip() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+:::
+::::
+
+# Marco europeo para la gestión del riesgo psicosocial (PRIMA-EF) (parte 2)
+:::: {.columns}
+::: {.column}
+**Interpretación**  
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# Create data
+data <- data.frame(
+  x=c("Carga y ritmo de trabajo","Contenido del trabajo",
+      "Relaciones personales","Participación y control",
+      "Desarrollo personal","Cultura organizacional",
+      "Interacción casa-trabajo","Valoración general"),
+  y=c(as.numeric(params$PRIMAEF.cgrt.pz), as.numeric(params$PRIMAEF.cont.pz),
+      as.numeric(params$PRIMAEF.relp.pz), as.numeric(params$PRIMAEF.parc.pz),
+      as.numeric(params$PRIMAEF.dper.pz), as.numeric(params$PRIMAEF.corg.pz),
+      as.numeric(params$PRIMAEF.intr.pz), as.numeric(params$PRIMAEF.valg.pz))
+)
+
+```
+
+`r if(as.numeric(params$PRIMAEF.dper.pz < 35)){"- Desarrollo personal. La persona experimenta pocas oportunidades de recibir una promoción en su trabajo."}`
+`r if(as.numeric(params$PRIMAEF.corg.pz < 35)){"- Cultura organizacional. La persona experimenta que en su trabajo existen pocas ocasiones en las que se ha sentido apoyado y que las comunicaciones sean oportunas y efectivas."}`
+`r if(as.numeric(params$PRIMAEF.intr.pz < 35)){"- Interacción casa-trabajo. La persona experimenta problemas para coordinar su horario laboral con sus actividades personales y familiares."}`
+
+`r if(params$PRIMAEF.cgrt.pz > 35 && params$PRIMAEF.cgrt.pz <= 65){"- Desarrollo personal. La persona experimenta *generalmente* algunas oportunidades de recibir una promoción en su trabajo."}`
+`r if(params$PRIMAEF.cont.pz > 35 && params$PRIMAEF.cont.pz <= 65){"- Cultura organizacional. La persona experimenta *generalmente* que en su trabajo existen algunas ocasiones en las que se ha sentido apoyado y que las comunicaciones son oportunas y efectivas."}`
+`r if(params$PRIMAEF.relp.pz > 35 && params$PRIMAEF.relp.pz <= 65){"- Interacción casa-trabajo. La persona experimenta *generalmente* ciertos problemas para coordinar su horario laboral con sus actividades personales y familiares."}`
+
+`r if(as.numeric(params$PRIMAEF.parc.pz > 65)){"- Participación y control. La persona experimenta muchas oportunidades para tomar decisiones en su ámbito laboral."}`
+`r if(as.numeric(params$PRIMAEF.dper.pz > 65)){"- Desarrollo personal. La persona experimenta muchas oportunidades de recibir una promoción en su trabajo."}`
+`r if(as.numeric(params$PRIMAEF.corg.pz > 65)){"- Cultura organizacional. La persona experimenta que en su trabajo existen muchas ocasiones en las se ha sentido apoyado y que las comunicaciones sean oportunas y efectivas."}`
+`r if(as.numeric(params$PRIMAEF.intr.pz > 65)){"- Interacción casa-trabajo. La persona experimenta pocos o ningún problema para coordinar su horario laboral con sus actividades personales y familiares."}`
+
+Esta interpretación se basa en Leka, S., & Cox, T. (2008). PRIMA-EF. Best practise in work-related stress management interventions.
+:::
+::: {.column}
+```{r, fig.cap="Notas T", echo=FALSE, warning=FALSE, message=FALSE}
+
+library(dplyr)
+library(ggplot2)
+
+data <- data %>%
+  mutate(name = factor(x, levels=c("Carga y ritmo de trabajo","Contenido del trabajo",
+      "Relaciones personales","Participación y control",
+      "Desarrollo personal","Cultura organizacional",
+      "Interacción casa-trabajo","Valoración general"))) 
+ggplot(data, aes(x=name, y=y)) +
+  geom_segment(aes(x=name, xend=name, y=50, yend=y), color="skyblue") +
+  geom_point( color="blue", size=4, alpha=0.6) +
+  ylab("Notas T")+
+  xlab("Dimensión")+
+  ylim(c(10,90))+
+  theme_light() +
+  geom_hline(yintercept=c(35,65), linetype="dashed", color = "red")+
+  coord_flip() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+:::
+::::
+
+
+# Cuestionario de capital psicológico (PCQ-12) (parte 1)
+:::: {.columns}
+::: {.column}
+**Interpretación**  
+  
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# Create data
+data <- data.frame(
+  x=c("Autoeficacia",
+      "Esperanza",
+      "Resiliencia",
+      "Optimismo",
+      "Capital psicológico"),
+   y=c(as.numeric(params$PCQ12.autf.pz), 
+       as.numeric(params$PCQ12.hope.pz),
+       as.numeric(params$PCQ12.rsl.pz),
+       as.numeric(params$PCQ12.optm.pz),
+       as.numeric(params$PCQ12.cap_psy.pz))
+
+)
+
+```
+
+
+`r if(as.numeric(params$PCQ12.autf.pz < 35)){"- Autoeficacia: esta persona se describe *en general* con pocos recursos para lidiar con las situaciones laborales."}`
+`r if(as.numeric(params$PCQ12.hope.pz < 35)){"- Esperanza: esta persona se describe *en general* con poca capacidad para planificar su futuro y para motivarse en conseguir lo que se propone."}`
+`r if(as.numeric(params$PCQ12.rsl.pz < 35)){"- Resiliencia: esta persona se percibe *en general* con poca capacidad para enfrentar adversidades y recuperarse de sus efectos negativos."}`
+`r if(as.numeric(params$PCQ12.optm.pz < 35)){"- Optimismo: esta persona percibe *en general* su entorno y sus situaciones negativamente."}`
+
+`r if(params$PCQ12.autf.pz > 35 && params$PCQ12.autf.pz <= 65){"- Autoeficacia: esta persona se describe *en general* con algunos recursos para lidiar con las situaciones laborales."}`
+`r if(params$PCQ12.hope.pz > 35 && params$PCQ12.hope.pz <= 65){"- Esperanza: esta persona se describe *en general* con cierta capacidad para planificar su futuro y para motivarse en conseguir lo que se propone."}`
+`r if(params$PCQ12.rsl.pz > 35 && params$PCQ12.rsl.pz <= 65){"- Resiliencia: esta persona se percibe *en general* con cierta capacidad para enfrentar adversidades y recuperarse de sus efectos negativos."}`
+`r if(params$PCQ12.optm.pz > 35 && params$PCQ12.optm.pz <= 65){"- Optimismo: esta persona percibe *en general* su entorno y sus situaciones con cierto optimismo."}`
+
+`r if(as.numeric(params$PCQ12.autf.pz > 65)){"- Autoeficacia: esta persona se describe *en general* con recursos suficientes para lidiar con las situaciones laborales."}`
+`r if(as.numeric(params$PCQ12.hope.pz > 65)){"- Esperanza: esta persona se describe *en general* con capacidad de planificar su futuro y de motivarse para conseguir lo que se propone."}`
+`r if(as.numeric(params$PCQ12.rsl.pz > 65)){"- Resiliencia: esta persona se percibe *en general* con capacidad para enfrentar adversidades y recuperarse de sus efectos negativos."}`
+`r if(as.numeric(params$PCQ12.optm.pz > 65)){"- Optimismo: esta persona percibe *en general* su entorno y sus situaciones positivamente."}`
+
+:::
+::: {.column}
+```{r, fig.cap="Notas T", echo=FALSE, warning=FALSE, message=FALSE}
+
+library(dplyr)
+library(ggplot2)
+
+data <- data %>%
+  mutate(name = factor(x, levels=c("Autoeficacia",
+      "Esperanza",
+      "Resiliencia",
+      "Optimismo",
+      "Capital psicológico"))) 
+ggplot(data, aes(x=name, y=y)) +
+  geom_segment(aes(x=name, xend=name, y=50, yend=y), color="skyblue") +
+  geom_point( color="blue", size=4, alpha=0.6) +
+  ylab("Notas T")+
+  xlab("Dimensión")+
+  ylim(c(10,90))+
+  theme_light() +
+  geom_hline(yintercept=c(35,65), linetype="dashed", color = "red")+
+  coord_flip() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+:::
+::::
+
+# Cuestionario de capital psicológico (PCQ-12) (parte 2)
+:::: {.columns}
+::: {.column}
+**Interpretación**  
+  
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# Create data
+data <- data.frame(
+  x=c("Autoeficacia",
+      "Esperanza",
+      "Resiliencia",
+      "Optimismo",
+      "Capital psicológico"),
+   y=c(as.numeric(params$PCQ12.autf.pz), 
+       as.numeric(params$PCQ12.hope.pz),
+       as.numeric(params$PCQ12.rsl.pz),
+       as.numeric(params$PCQ12.optm.pz),
+       as.numeric(params$PCQ12.cap_psy.pz))
+
+)
+
+```
+
+`r if(as.numeric(params$PCQ12.cap_psy.pz < 35)){"- Capital psicológico: esta persona presenta *en general* un perfil con niveles bajos de confianza, esperanza, resilencia y optimismo."}`
+
+
+`r if(params$PCQ12.cap_psy.pz > 35 && params$PCQ12.cap_psy.pz <= 65){"- Capital psicológico: esta persona presenta *en general* un perfil con niveles medios de confianza, esperanza, resilencia y optimismo."}`
+
+`r if(as.numeric(params$PCQ12.cap_psy.pz > 65)){"- Capital psicológico: esta persona presenta *en general* un perfil con niveles altos de confianza, esperanza, resilencia y optimismo."}`
+
+Esta interpretación se basa en López-Núñez, MI, de Jesús, SN, Viseu, J, & Santana-Cárdenas, S. *Capital psicológico de los trabajadores en España. Análisis factorial confirmatorio del PCQ-12.* Revista Iberoamericana de Diagnóstico y Evaluación-e Avaliação Psicológica, 3(48), 67-79. 
+
+:::
+::: {.column}
+```{r, fig.cap="Notas T", echo=FALSE, warning=FALSE, message=FALSE}
+
+library(dplyr)
+library(ggplot2)
+
+data <- data %>%
+  mutate(name = factor(x, levels=c("Autoeficacia",
+      "Esperanza",
+      "Resiliencia",
+      "Optimismo",
+      "Capital psicológico"))) 
+ggplot(data, aes(x=name, y=y)) +
+  geom_segment(aes(x=name, xend=name, y=50, yend=y), color="skyblue") +
+  geom_point( color="blue", size=4, alpha=0.6) +
+  ylab("Notas T")+
+  xlab("Dimensión")+
+  ylim(c(10,90))+
+  theme_light() +
+  geom_hline(yintercept=c(35,65), linetype="dashed", color = "red")+
+  coord_flip() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+:::
+::::
